@@ -157,14 +157,14 @@ int MCP3208::SPIxADC(uint8_t channel, bool differential) {
 
   } else {
 
-    uint32_t outBuffer, inBuffer = 0;
+    uint16_t outBuffer, inBuffer = 0;
 
     digitalWrite(cs, LOW);
 
     // 5 command bits + 1 null bit + 12 data bits = 18 bits
     outBuffer = command << 8;
     for (int c = 0; c < 18; c++) {
-      digitalWrite(mosi, (outBuffer >> (17 - c)) & 0x01);
+      digitalWrite(mosi, (outBuffer >> (15 - c)) & 0x01);
       digitalWrite(sck, HIGH);
       digitalWrite(sck, LOW);
       inBuffer <<= 1;
